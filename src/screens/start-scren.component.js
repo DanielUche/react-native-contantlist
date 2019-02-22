@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import {
   View,
   Text,
@@ -7,6 +6,7 @@ import {
   StyleSheet,
   Alert
 } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 
 const styles = StyleSheet.create({
   contaioner: {
@@ -17,6 +17,18 @@ const styles = StyleSheet.create({
 });
 
 class StartScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      deviceName: '',
+    };
+  }
+
+  getDeviceName() {
+    Alert.alert('you are on' + JSON.stringify(DeviceInfo.getDeviceName()));
+  }
+
+
   render() {
     return (
       <View style={styles.contaioner}>
@@ -25,7 +37,7 @@ class StartScreen extends Component {
         </Text>
         <Button 
           title="Please Click Me" 
-          onPress={() => Alert.alert('wobi wos wo')}
+          onPress={this.getDeviceName }
         />
       </View>
     )
