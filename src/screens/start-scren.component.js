@@ -4,7 +4,7 @@ import {
   Text,
   Button,
   StyleSheet,
-  Alert
+  Alert,
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 
@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
   contaioner: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });
 
 class StartScreen extends Component {
@@ -24,10 +24,9 @@ class StartScreen extends Component {
     };
   }
 
-  getDeviceName() {
-    Alert.alert('you are on' + JSON.stringify(DeviceInfo.getDeviceName()));
+  getDeviceName = () => {
+    Alert.alert(`you are on ${JSON.stringify(DeviceInfo.getDeviceName())}`);
   }
-
 
   render() {
     return (
@@ -35,12 +34,12 @@ class StartScreen extends Component {
         <Text>
           Wo wos wobi
         </Text>
-        <Button 
-          title="Please Click Me" 
-          onPress={this.getDeviceName }
+        <Button
+          title="Please Click Me"
+          onPress={this.getDeviceName}
         />
       </View>
-    )
+    );
   }
 }
 
