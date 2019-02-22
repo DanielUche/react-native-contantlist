@@ -10,6 +10,7 @@ import {
   Button,
 } from 'react-native-elements';
 import DeviceInfo from 'react-native-device-info';
+import { gotoSignUp } from '../navigation';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,6 +35,7 @@ const styles = StyleSheet.create({
   buttonStyle: {
     borderRadius: 50,
     backgroundColor: 'rgb(46,139,87)',
+    // textTransform: 'capitalize',
   },
 });
 
@@ -54,6 +56,11 @@ class StartScreen extends Component {
     });
   }
 
+  gotoSignUp = () => {
+    const { componentId } = this.props;
+    gotoSignUp(componentId);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -66,7 +73,7 @@ class StartScreen extends Component {
         <View style={styles.buttonContainer}>
           <Button
             title=" Create Account"
-            onPress={this.getDeviceName}
+            onPress={this.gotoSignUp}
             buttonStyle={{ ...styles.buttonStyle, backgroundColor: 'rgb(255,222,173)' }}
           />
           <Button

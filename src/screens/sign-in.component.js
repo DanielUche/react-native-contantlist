@@ -4,10 +4,6 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import {
-  Button,
-} from 'react-native-elements';
-import { gotoSignIn } from '../navigation';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,33 +31,17 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = {
-  componentId: string;
-}
 
-class SignUpScreen extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      // deviceName: '',
-    };
-  }
-
-  gotoSignIn = () => {
-    const { componentId } = this.props;
-    gotoSignIn(componentId);
-  }
-
+class SignInScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text>
-          Sign Up screen
+          Sign In screen
         </Text>
-        <Button onPress={this.gotoSign} title="Goto Sign Page" />
       </View>
     );
   }
 }
 
-export default SignUpScreen;
+export default SignInScreen;
