@@ -3,13 +3,11 @@ import {
   View,
   Text,
   StyleSheet,
-  Alert,
   Image,
 } from 'react-native';
 import {
   Button,
 } from 'react-native-elements';
-import DeviceInfo from 'react-native-device-info';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,7 +35,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class StartScreen extends Component {
+class SignUpScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,14 +43,6 @@ class StartScreen extends Component {
     };
   }
 
-  getDeviceName = () => {
-    this.setState(() => ({
-      deviceName: DeviceInfo.getDeviceName(),
-    }), () => {
-      const { deviceName } = this.state;
-      Alert.alert(`You are on ${deviceName}`);
-    });
-  }
 
   render() {
     return (
@@ -83,4 +73,4 @@ class StartScreen extends Component {
   }
 }
 
-export default StartScreen;
+export default SignUpScreen;
