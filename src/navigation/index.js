@@ -1,5 +1,7 @@
 /* eslint-disable quotes */
+import { Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export const gotoSignUp = () => Navigation.setRoot({
   root: {
@@ -7,7 +9,7 @@ export const gotoSignUp = () => Navigation.setRoot({
       id: 'SignUpScreen',
       children: [{
         component: {
-          name: "contactlist.SignUpScreen",
+          name: 'contactlist.SignUpScreen',
         },
       }],
     },
@@ -16,7 +18,7 @@ export const gotoSignUp = () => Navigation.setRoot({
 
 export const gotoSignIn = id => Navigation.push(id, {
   component: {
-    name: "contactlist.SignInScreen",
+    name: 'contactlist.SignInScreen',
     passProps: {
       text: 'Pushed screen: SignInScreen',
     },
@@ -30,24 +32,55 @@ export const gotoSignIn = id => Navigation.push(id, {
   },
 });
 
-export const gotoHome = () => Navigation.setRoot({
-  root: {
-    sideMenu: {
-      left: {
-        component: {
-          name: "contactlist.MenuDrawer",
-        },
-      },
-      center: {
-        stack: {
-          options: {},
-          children: [{
-            component: {
-              name: "contactlist.HomeScreen",
-            },
-          }],
-        },
-      },
+const menuOptions = () => Promise.all([
+  Icon.getImageSource(Platform.OS === 'android' ? 'md-menu' : 'ios-menu', 30),
+]).then(icons => Promise.resolve({
+  topBar: {
+    leftButtons: [{
+      id: 'humbuggerMenuButton',
+      icon: icons[0],
+    }],
+    drawBehind: false,
+    animate: true,
+  },
+  sideMenu: {
+    left: {
+      width: 200,
     },
   },
-});
+  overlay: {
+    interceptTouchOutside: true,
+  },
+  // 'parallax', 'door', 'slide', or 'slide-and-scale'
+  animationType: 'slide-and-scale',
+  openGestureMode: 'bezel',
+}));
+
+export const gotoHome = async () => {
+  // const status = await Navigation.constants().statusBarHeight;
+  // console.log(status);
+  menuOptions().then((options) => {
+    Navigation.setRoot({
+      root: {
+        sideMenu: {
+          left: {
+            component: {
+              id: 'menuDrawer',
+              name: 'contactlist.MenuDrawer',
+            },
+          },
+          center: {
+            stack: {
+              children: [{
+                component: {
+                  name: 'contactlist.HomeScreen',
+                  options,
+                },
+              }],
+            },
+          },
+        },
+      },
+    });
+  });
+};

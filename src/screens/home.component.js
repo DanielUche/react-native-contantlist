@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
+  StyleSheet, Platform,
 } from 'react-native';
+import Icon from 'react-native-vector-icons';
 import { Navigation } from 'react-native-navigation';
 import { Button } from 'react-native-elements';
 
@@ -35,9 +36,30 @@ const styles = StyleSheet.create({
 
 
 class HomeScreen extends Component {
+  constructor(props) {
+    super(props);
+    // Bind the current component to get its' events
+    Navigation.events().bindComponent(this);
+  }
+
   popScreen = () => {
     const { componentId } = this.props;
     Navigation.pop(componentId);
+  }
+
+  navigationButtonPressed = ({ buttonId }) => {
+    if (buttonId !== 'humbuggerMenuButton') {
+      return;
+    }
+
+    // Use the assigned id here
+    Navigation.mergeOptions('menuDrawer', {
+      sideMenu: {
+        left: {
+          visible: true,
+        },
+      },
+    });
   }
 
   render() {
