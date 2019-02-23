@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 });
 
 
-class SignInScreen extends Component {
+class HomeScreen extends Component {
   popScreen = () => {
     const { componentId } = this.props;
     Navigation.pop(componentId);
@@ -44,12 +44,17 @@ class SignInScreen extends Component {
     return (
       <View style={styles.container}>
         <Text>
-          Sign In screen woooooooo
+          Welcome to Home Page
         </Text>
-        <Button title="Remove me Jor" onPress={this.popScreen} />
+        <Text>
+          Welcome to Home Page
+        </Text>
+        <Text>
+          Welcome to Home Page
+        </Text>
       </View>
     );
   }
 }
 
-export default SignInScreen;
+export default HomeScreen;

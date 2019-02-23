@@ -7,7 +7,7 @@ import {
 import {
   Button,
 } from 'react-native-elements';
-import { gotoSignIn } from '../navigation';
+import { gotoSignIn, gotoHome } from '../navigation';
 
 const styles = StyleSheet.create({
   container: {
@@ -47,9 +47,24 @@ class SignUpScreen extends Component<Props> {
     };
   }
 
+  static get options() {
+    return {
+      topBar: {
+        title: {
+          text: 'Sign Up',
+        },
+      },
+    };
+  }
+
   gotoSignIn = () => {
     const { componentId } = this.props;
     gotoSignIn(componentId);
+  }
+
+  gotoHome = () => {
+    const { componentId } = this.props;
+    gotoHome(componentId);
   }
 
   render() {
@@ -58,7 +73,8 @@ class SignUpScreen extends Component<Props> {
         <Text>
           Sign Up screen
         </Text>
-        <Button onPress={this.gotoSign} title="Goto Sign Page" />
+        <Button onPress={this.gotoSignIn} title="Goto Sign Page" />
+        <Button onPress={this.gotoHome} title="Goto Home/Welcome Page" />
       </View>
     );
   }
