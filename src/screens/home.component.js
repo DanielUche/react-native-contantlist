@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons';
 import { Navigation } from 'react-native-navigation';
-import { Button } from 'react-native-elements';
+import { Button, Header } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   container: {
@@ -53,7 +53,7 @@ class HomeScreen extends Component {
     }
 
     // Use the assigned id here
-    Navigation.mergeOptions('menuDrawer', {
+    Navigation.mergeOptions('MenuDrawer', {
       sideMenu: {
         left: {
           visible: true,
@@ -74,6 +74,22 @@ class HomeScreen extends Component {
         <Text>
           Welcome to Home Page
         </Text>
+
+        <Button
+          title="Outline button"
+          type="outline"
+          raised
+        />
+        <Button
+          title="Loading button"
+          loading
+          raised
+          buttonStyle={{ width: 120 }}
+        />
+        <Button
+          title="Clear button"
+          type="clear"
+        />
       </View>
     );
   }
