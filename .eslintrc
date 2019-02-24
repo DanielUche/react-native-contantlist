@@ -7,6 +7,7 @@
     "global-require": "off",
     "no-cond-assign": ["error", "always"],
     "react/forbid-prop-types": 0,
-    "no-return-assign":"off"
+    "no-return-assign":"off",
+    "react/no-array-index-key": "off"
   }
 }
