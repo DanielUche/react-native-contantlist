@@ -74,7 +74,7 @@ class StartScreen extends Component {
           <Button
             title=" Create Account"
             onPress={this.gotoSignUp}
-            buttonStyle={{ ...styles.buttonStyle, backgroundColor: 'rgb(255,222,173)' }}
+            buttonStyle={{ ...styles.buttonStyle, backgroundColor: '#ffa725' }}
           />
           <Button
             title="Sign In"
