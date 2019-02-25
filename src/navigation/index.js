@@ -7,16 +7,12 @@ import { APP_PAGES } from '../../constant';
 
 export const gotoSignUp = () => Navigation.setRoot({
   root: {
-    stack: {
-      id: APP_PAGES.sign_in.id,
-      children: [{
-        component: {
-          name: APP_PAGES.sign_up.name,
-        },
-      }],
+    component: {
+      name: APP_PAGES.sign_up.name,
     },
   },
 });
+
 
 export const gotoSignIn = () => Navigation.setRoot({
   root: {
@@ -69,7 +65,7 @@ const menuOptions = text => Promise.all([
   },
   sideMenu: {
     left: {
-      width: 200,
+      width: 300,
       shouldStretchDrawer: false,
       // animationVelocity: 2500, //default is 840
     },
