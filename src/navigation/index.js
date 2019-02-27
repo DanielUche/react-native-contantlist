@@ -13,7 +13,6 @@ export const gotoSignUp = () => Navigation.setRoot({
   },
 });
 
-
 export const gotoSignIn = () => Navigation.setRoot({
   root: {
     stack: {

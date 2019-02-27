@@ -26,9 +26,9 @@ function WrappedComponent(Component) {
 
 const registerComponents = () => {
   Navigation.registerComponent('contactlist.StartScreen', () => WrappedComponent(StartScreen));
-  Navigation.registerComponent('contactlist.SignUpScreen', () => SignUpScreen);
+  Navigation.registerComponent('contactlist.SignUpScreen', () => WrappedComponent(SignUpScreen));
   Navigation.registerComponent('contactlist.SignInScreen', () => SignInScreen);
-  Navigation.registerComponent('contactlist.HomeScreen', () => HomeScreen);
+  Navigation.registerComponent('contactlist.HomeScreen', () => WrappedComponent(HomeScreen));
   Navigation.registerComponent('contactlist.MenuDrawer', () => MenuDrawer);
 };
 

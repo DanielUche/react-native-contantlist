@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import {
   View,
   Text,
@@ -6,6 +7,7 @@ import {
   Platform,
   TextInput,
 } from 'react-native';
+import { connect } from 'react-redux';
 import {
   Button,
   Input,
@@ -14,6 +16,7 @@ import {
 } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { gotoSignIn, gotoHome } from '../navigation';
+import { register, signUpNewUser } from '../store/actions/register.action';
 
 const styles = StyleSheet.create({
   container: {
@@ -59,7 +62,10 @@ class SignUpScreen extends Component<Props> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      // deviceName: '',
+      controls: {
+        email: '',
+        password: '',
+      },
     };
   }
 
@@ -73,9 +79,23 @@ class SignUpScreen extends Component<Props> {
   //   };
   // }
 
-  gotoSignIn = () => {
-    const { componentId } = this.props;
-    gotoSignIn(componentId);
+  gotoSignUp = () => {
+    // const { componentId } = this.props;
+    const { controls } = this.state;
+    const { email, password } = controls;
+    if (email.length && password.length) {
+      this.props.signUpNewUser(controls);
+    }
+  }
+
+  onInputChanged = (key, value) => {
+    this.setState(prevState => ({
+      ...prevState,
+      controls: {
+        ...prevState.controls,
+        [key]: value,
+      },
+    }));
   }
 
   gotoHome = () => {
@@ -90,8 +110,10 @@ class SignUpScreen extends Component<Props> {
           Create Account
         </Text>
         <Input
+          onChangeText={val => this.onInputChanged('email', val)}
           placeholderTextColor="#97ddb6"
-          placeholder="Username"
+          placeholder="E-Mail"
+          autoCapitalize="none"
           underlineColorAndroid="transparent"
           inputContainerStyle={{
             borderBottomWidth: 0,
@@ -120,9 +142,11 @@ class SignUpScreen extends Component<Props> {
           )}
         />
         <Input
+          onChangeText={val => this.onInputChanged('password', val)}
           placeholderTextColor="#97ddb6"
           textContentType="password"
           secureTextEntry
+          autoCapitalize="none"
           placeholder="Password"
           underlineColorAndroid="transparent"
           inputContainerStyle={{
@@ -170,7 +194,7 @@ class SignUpScreen extends Component<Props> {
         <View style={{ ...styles.buttonContainer }}>
           <Button
             title=" Create Account"
-            onPress={this.gotoSignUp}
+            onPress={() => this.gotoSignUp()}
             buttonStyle={{ ...styles.buttonStyle, backgroundColor: '#ffa725' }}
           />
         </View>
@@ -179,4 +203,13 @@ class SignUpScreen extends Component<Props> {
   }
 }
 
-export default SignUpScreen;
+export const mapStateToProps = () => {
+
+};
+
+export const mapDispatchToProps = () => dispatch => bindActionCreators(
+  { register, signUpNewUser }, dispatch,
+);
+
+
+export default connect(null, mapDispatchToProps)(SignUpScreen);
