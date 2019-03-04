@@ -42,7 +42,7 @@ const tryAuth = (userData, endPoint) => (dispatch) => {
     },
   }).then(res => res.json()).then((data) => {
     console.log(data);
-    if (data.error) {
+    if (!data.idToken) {
       dispatch(authFailure(AUTH_ERRORS[data.error.message]));
     } else {
       gotoHome();
@@ -80,7 +80,7 @@ export const register = () => {
 };
 
 
-export const getUsers = () => {
+export const getUsers = () => (dispatch, getState) => {
   fetch('https://contactlist-209a9.firebaseio.com/users.json')
     .then(res => res.json())
     .then((data) => {

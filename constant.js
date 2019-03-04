@@ -1,3 +1,5 @@
+import Config from 'react-native-config';
+
 const pages = {};
 pages.sign_up = {
   page: 'sign-up',
@@ -27,7 +29,7 @@ pages.menu = {
 
 export const APP_PAGES = pages;
 
-const FIREBASE_AUTH_API_KEY = 'AIzaSyA7CuG9ddP5_jzbw6Tj_Zs4x_tyXg_aJPk';
+const { FIREBASE_AUTH_API_KEY } = Config;
 
 export const FIREBASE_AUTH_SIGN_IN = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${FIREBASE_AUTH_API_KEY}`;
 export const FIREBASE_AUTH_SIGN_UP = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${FIREBASE_AUTH_API_KEY}`;

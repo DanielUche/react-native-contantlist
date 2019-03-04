@@ -10,6 +10,7 @@ import {
   Button,
 } from 'react-native-elements';
 import DeviceInfo from 'react-native-device-info';
+import Config from 'react-native-config';
 import { gotoSignUp, gotoSignIn } from '../navigation';
 
 const styles = StyleSheet.create({

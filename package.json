@@ -12,9 +12,11 @@
   "dependencies": {
     "@google-cloud/storage": "^2.4.2",
     "axios": "^0.18.0",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "prop-types": "^15.7.2",
     "react": "16.6.3",
     "react-native": "0.58.5",
+    "react-native-config": "^0.11.7",
     "react-native-device-info": "^0.26.4",
     "react-native-elements": "^1.0.0",
     "react-native-navigation": "^2.12.0",

@@ -159,6 +159,7 @@ subprojects { subproject ->
 }
 
 dependencies {
+    implementation project(':react-native-config')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-device-info')
     implementation fileTree(dir: "libs", include: ["*.jar"])
