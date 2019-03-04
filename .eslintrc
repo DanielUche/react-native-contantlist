@@ -2,12 +2,22 @@
   "extends": "airbnb",
   "parser": "babel-eslint",
   "rules": {
-    "indent": [2, 2, {"SwitchCase": 1}],
-    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "indent": [2, 2, {
+      "SwitchCase": 1
+    }],
+    "react/jsx-filename-extension": ["error", {
+      "extensions": [".js", ".jsx"]
+    }],
     "global-require": "off",
     "no-cond-assign": ["error", "always"],
     "react/forbid-prop-types": 0,
-    "no-return-assign":"off",
-    "react/no-array-index-key": "off"
+    "no-return-assign": "off",
+    "react/no-array-index-key": "off",
+    "eol-last": "off"
+  },
+  "globals": {
+    "fetch": true,
+    "window": true,
+    "__DEV__": true
   }
 }

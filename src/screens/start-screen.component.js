@@ -10,7 +10,8 @@ import {
   Button,
 } from 'react-native-elements';
 import DeviceInfo from 'react-native-device-info';
-import { gotoSignUp } from '../navigation';
+import Config from 'react-native-config';
+import { gotoSignUp, gotoSignIn } from '../navigation';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,8 +40,11 @@ const styles = StyleSheet.create({
   },
 });
 
-class StartScreen extends Component {
-  constructor(props) {
+type Props = {
+  componentId: string;
+}
+class StartScreen extends Component<Props> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       deviceName: '',
@@ -61,6 +65,11 @@ class StartScreen extends Component {
     gotoSignUp(componentId);
   }
 
+  gotoSignIn = () => {
+    const { componentId } = this.props;
+    gotoSignIn(componentId);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -78,7 +87,7 @@ class StartScreen extends Component {
           />
           <Button
             title="Sign In"
-            onPress={this.getDeviceName}
+            onPress={this.gotoSignIn}
             buttonStyle={{ ...styles.buttonStyle, marginTop: 20 }}
           />
         </View>
