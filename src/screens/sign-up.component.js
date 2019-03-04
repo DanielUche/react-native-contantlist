@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
   View,
   Text,
   StyleSheet,
   Platform,
-  TextInput,
 } from 'react-native';
-import { connect } from 'react-redux';
 import {
   Button,
   Input,
   CheckBox,
-  SocialIcon,
 } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { gotoSignIn, gotoHome } from '../navigation';
-import { register, signUpNewUser } from '../store/actions/register.action';
+import { gotoHome } from '../navigation';
+import { register, auth } from '../store/actions/auth.action';
 
 const styles = StyleSheet.create({
   container: {
@@ -56,6 +54,9 @@ const styles = StyleSheet.create({
 
 type Props = {
   componentId: string;
+  signUp: Function;
+  loading: boolean;
+  error: string;
 }
 
 class SignUpScreen extends Component<Props> {
@@ -80,11 +81,11 @@ class SignUpScreen extends Component<Props> {
   // }
 
   gotoSignUp = () => {
-    // const { componentId } = this.props;
     const { controls } = this.state;
     const { email, password } = controls;
+    const { signUp } = this.props;
     if (email.length && password.length) {
-      this.props.signUpNewUser(controls);
+      signUp(controls, 'register');
     }
   }
 
@@ -104,11 +105,19 @@ class SignUpScreen extends Component<Props> {
   }
 
   render() {
+    const { loading, error } = this.props;
     return (
       <View style={styles.container}>
         <Text style={styles.largeText}>
           Create Account
         </Text>
+        {
+          error && !loading ? (
+            <Text>
+              { error }
+            </Text>
+          ) : null
+        }
         <Input
           onChangeText={val => this.onInputChanged('email', val)}
           placeholderTextColor="#97ddb6"
@@ -193,6 +202,7 @@ class SignUpScreen extends Component<Props> {
         </View>
         <View style={{ ...styles.buttonContainer }}>
           <Button
+            loading={loading}
             title=" Create Account"
             onPress={() => this.gotoSignUp()}
             buttonStyle={{ ...styles.buttonStyle, backgroundColor: '#ffa725' }}
@@ -203,13 +213,14 @@ class SignUpScreen extends Component<Props> {
   }
 }
 
-export const mapStateToProps = () => {
-
-};
+export const mapStateToProps = state => ({
+  loading: state.Auth.loading,
+  success: state.Auth.success,
+  error: state.Auth.error,
+});
 
 export const mapDispatchToProps = () => dispatch => bindActionCreators(
-  { register, signUpNewUser }, dispatch,
+  { register, signUp: auth }, dispatch,
 );
 
-
-export default connect(null, mapDispatchToProps)(SignUpScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen);

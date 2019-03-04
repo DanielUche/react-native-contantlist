@@ -15,13 +15,8 @@ export const gotoSignUp = () => Navigation.setRoot({
 
 export const gotoSignIn = () => Navigation.setRoot({
   root: {
-    stack: {
-      id: APP_PAGES.sign_in.id,
-      children: [{
-        component: {
-          name: APP_PAGES.sign_in.name,
-        },
-      }],
+    component: {
+      name: APP_PAGES.sign_in.name,
     },
   },
 });

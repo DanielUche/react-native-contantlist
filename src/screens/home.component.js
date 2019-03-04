@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  StyleSheet, Platform,
+  StyleSheet,
 } from 'react-native';
-import Icon from 'react-native-vector-icons';
+// import Icon from 'react-native-vector-icons';
 import { Navigation } from 'react-native-navigation';
-import { Button, Header } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,8 +34,12 @@ const styles = StyleSheet.create({
   },
 });
 
+type Props = {
+   componentId: string;
+}
 
-class HomeScreen extends Component {
+
+class HomeScreen extends Component<Props> {
   constructor(props) {
     super(props);
     // Bind the current component to get its' events
