@@ -76,14 +76,12 @@ export const register = () => {
     .then(data => data).catch(err => err);
 };
 
-export const authGetToken = () => (dispatch, getState) => {
-  const promise = new Promise((resolve, reject) => {
+export const authGetToken = () => (dispatch, getState) => new Promise(
+  (resolve, reject) => {
     const token = getState().Auth.detail.idToken;
     if (!token) {
-      reject();
-    } else {
-      resolve(token);
+      return reject();
     }
-  });
-  return promise;
-};
+    return resolve(token);
+  },
+);

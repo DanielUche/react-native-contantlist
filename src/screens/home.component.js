@@ -16,6 +16,7 @@ import {
 import { gotoHome } from '../navigation';
 import { getTodos } from '../store/actions/todos.action';
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -57,6 +58,7 @@ type Props = {
   getUserTodos: Function;
   loading: boolean;
   error: string;
+  todos: [];
 }
 
 class HomeScreen extends Component<Props> {
@@ -101,7 +103,7 @@ class HomeScreen extends Component<Props> {
   }
 
   render() {
-    const { loading, error } = this.props;
+    const { loading, error, todos } = this.props;
     return (
       <View style={styles.container}>
         <Text>

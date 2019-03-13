@@ -4,6 +4,7 @@ import {
 } from '../../../constant';
 import { authGetToken } from './auth.action';
 
+
 const getTodosRequest = () => ({
   type: actionTypes.GET_TODO_REQUEST,
   payload: {
@@ -27,9 +28,8 @@ const getTodosFailure = err => ({
   },
 });
 
-
-export const getTodos = () => dispatch => dispatch(authGetToken())
-  .then((token) => {
+export const getTodos = () => (dispatch) => {
+  dispatch(authGetToken()).then((token) => {
     dispatch(getTodosRequest());
     return fetch(`${FIREBASE_BASE_URL}/todos.json?auth=${token}`)
       .then(res => res.json())
@@ -38,18 +38,11 @@ export const getTodos = () => dispatch => dispatch(authGetToken())
       }).catch((err) => {
         dispatch(getTodosFailure(err));
       });
-  }).catch(() => {
-    window.alert('No vlid token found');
+  }).catch((err) => {
+    window.alert(err);
   });
+};
 
-export const getTodos2 = () => (dispatch, getState) => {
-  const appStates = getState();
-  dispatch(getTodosRequest());
-  fetch(`${FIREBASE_BASE_URL}/todos.json?auth=${appStates.auth.detail.idToken}`)
-    .then(res => res.json())
-    .then((data) => {
-      console.log(data);
-    }).catch((err) => {
-      console.log(err);
-    });
+export const addTodo = () => (dispatch) => {
+
 };
