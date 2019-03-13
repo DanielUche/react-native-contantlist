@@ -3,6 +3,7 @@ import {
   AUTH_ERRORS,
   FIREBASE_AUTH_SIGN_IN,
   FIREBASE_AUTH_SIGN_UP,
+  FIREBASE_BASE_URL,
 } from '../../../constant';
 import { gotoHome } from '../../navigation';
 
@@ -19,6 +20,7 @@ export const authSuccess = data => ({
     loading: false,
     detail: data,
     success: true,
+    error: '',
   },
 });
 
@@ -32,7 +34,6 @@ export const authFailure = err => ({
 });
 
 const tryAuth = (userData, endPoint) => (dispatch) => {
-  console.log(endPoint);
   dispatch(authRequest());
   fetch(`${endPoint}`, {
     method: 'POST',
@@ -41,13 +42,11 @@ const tryAuth = (userData, endPoint) => (dispatch) => {
       'Content-Type': 'application/json',
     },
   }).then(res => res.json()).then((data) => {
-    console.log(data);
     if (!data.idToken) {
       dispatch(authFailure(AUTH_ERRORS[data.error.message]));
     } else {
-      gotoHome();
-      console.log('i entered here');
       dispatch(authSuccess(data));
+      gotoHome();
     }
   }).catch(() => {
     dispatch(authFailure('Something went wrong trying to sign you up'));
@@ -70,22 +69,21 @@ export const register = () => {
     user: 'Daniel Uche',
     email: 'dank.uche@yahoo.com',
   };
-  fetch('https://contactlist-209a9.firebaseio.com/users.json', {
+  fetch(`${FIREBASE_BASE_URL}/todos.json`, {
     method: 'POST',
-    body: JSON.stringify({ user }),
+    body: JSON.stringify(user),
   }).then(res => res.json())
-    .then(data => data).catch((err) => {
-      console.log(err);
-    });
+    .then(data => data).catch(err => err);
 };
 
-
-export const getUsers = () => (dispatch, getState) => {
-  fetch('https://contactlist-209a9.firebaseio.com/users.json')
-    .then(res => res.json())
-    .then((data) => {
-      console.log(data);
-    }).catch((err) => {
-      console.log(err);
-    });
+export const authGetToken = () => (dispatch, getState) => {
+  const promise = new Promise((resolve, reject) => {
+    const token = getState().Auth.detail.idToken;
+    if (!token) {
+      reject();
+    } else {
+      resolve(token);
+    }
+  });
+  return promise;
 };

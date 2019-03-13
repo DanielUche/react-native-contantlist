@@ -13,7 +13,8 @@
     "react/forbid-prop-types": 0,
     "no-return-assign": "off",
     "react/no-array-index-key": "off",
-    "eol-last": "off"
+    "eol-last": "off",
+    "no-new":"off"
   },
   "globals": {
     "fetch": true,

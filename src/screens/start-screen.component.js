@@ -10,7 +10,7 @@ import {
   Button,
 } from 'react-native-elements';
 import DeviceInfo from 'react-native-device-info';
-import Config from 'react-native-config';
+import { register } from '../store/actions/auth.action';
 import { gotoSignUp, gotoSignIn } from '../navigation';
 
 const styles = StyleSheet.create({
@@ -49,6 +49,10 @@ class StartScreen extends Component<Props> {
     this.state = {
       deviceName: '',
     };
+  }
+
+  componentDidMount() {
+    register();
   }
 
   getDeviceName = () => {

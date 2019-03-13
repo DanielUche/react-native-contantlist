@@ -31,6 +31,7 @@ export const APP_PAGES = pages;
 
 const { FIREBASE_AUTH_API_KEY } = Config;
 
+export const FIREBASE_BASE_URL = 'https://contactlist-209a9.firebaseio.com';
 export const FIREBASE_AUTH_SIGN_IN = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${FIREBASE_AUTH_API_KEY}`;
 export const FIREBASE_AUTH_SIGN_UP = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${FIREBASE_AUTH_API_KEY}`;
 

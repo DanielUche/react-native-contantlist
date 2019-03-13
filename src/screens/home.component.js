@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
   View,
   Text,
   StyleSheet,
+  Platform,
 } from 'react-native';
-// import Icon from 'react-native-vector-icons';
-import { Navigation } from 'react-native-navigation';
-import { Button } from 'react-native-elements';
+import {
+  Button,
+  Input,
+  CheckBox,
+} from 'react-native-elements';
+import { gotoHome } from '../navigation';
+import { getTodos } from '../store/actions/todos.action';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    // backgroundColor: '#32985f',
   },
   imageStyle: {
     height: 250,
@@ -24,79 +32,94 @@ const styles = StyleSheet.create({
     overlayColor: 'white',
   },
   buttonContainer: {
-    width: 250,
-    paddingTop: 70,
+    width: 300,
+    marginTop: 50,
     paddingBottom: 10,
   },
+  largeText: {
+    // color: 'red',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
   buttonStyle: {
-    borderRadius: 50,
+    padding: 10,
+    borderWidth: 0,
+    borderRadius: 60,
     backgroundColor: 'rgb(46,139,87)',
+  },
+  buttonTitleStyle: {
+    color: 'white',
   },
 });
 
 type Props = {
-   componentId: string;
+  componentId: string;
+  getUserTodos: Function;
+  loading: boolean;
+  error: string;
 }
 
-
 class HomeScreen extends Component<Props> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
-    // Bind the current component to get its' events
-    Navigation.events().bindComponent(this);
-  }
-
-  popScreen = () => {
-    const { componentId } = this.props;
-    Navigation.pop(componentId);
-  }
-
-  navigationButtonPressed = ({ buttonId }) => {
-    if (buttonId !== 'humbuggerMenuButton') {
-      return;
-    }
-
-    // Use the assigned id here
-    Navigation.mergeOptions('MenuDrawer', {
-      sideMenu: {
-        left: {
-          visible: true,
-        },
+    this.state = {
+      controls: {
+        email: '',
+        password: '',
       },
-    });
+    };
+  }
+
+  // static get options() {
+  //   return {
+  //     topBar: {
+  //       title: {
+  //         text: 'Sign Up',
+  //       },
+  //     },
+  //   };
+  // }
+
+  componentDidMount() {
+    const { getUserTodos } = this.props;
+    getUserTodos();
+  }
+
+  onInputChanged = (key, value) => {
+    this.setState(prevState => ({
+      ...prevState,
+      controls: {
+        ...prevState.controls,
+        [key]: value,
+      },
+    }));
+  }
+
+  gotoHome = () => {
+    const { componentId } = this.props;
+    gotoHome(componentId);
   }
 
   render() {
+    const { loading, error } = this.props;
     return (
       <View style={styles.container}>
         <Text>
-          Welcome to Home Page
+          lsjdljls;d
         </Text>
-        <Text>
-          Welcome to Home Page
-        </Text>
-        <Text>
-          Welcome to Home Page
-        </Text>
-
-        <Button
-          title="Outline button"
-          type="outline"
-          raised
-        />
-        <Button
-          title="Loading button"
-          loading
-          raised
-          buttonStyle={{ width: 120 }}
-        />
-        <Button
-          title="Clear button"
-          type="clear"
-        />
       </View>
     );
   }
 }
 
-export default HomeScreen;
+export const mapStateToProps = state => ({
+  loading: state.Todo.loading,
+  todos: state.Todo.todos,
+  error: state.Todo.error,
+});
+
+export const mapDispatchToProps = () => dispatch => bindActionCreators(
+  { getUserTodos: getTodos }, dispatch,
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
