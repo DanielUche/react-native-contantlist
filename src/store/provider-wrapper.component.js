@@ -10,27 +10,29 @@ type Props = {
   children: React.ReactNodeArray;
 }
 
+let store = null;
+
+/* eslint-disable no-underscore-dangle */
+
 class AppStoreProvider extends PureComponent<Props> {
   static childContextTypes = {
     store: PropTypes.shape({}),
   };
 
   constructor(props) {
-    /* eslint-disable no-underscore-dangle */
     super(props);
     const middleware = [thunk];
     if (__DEV__) {
       middleware.push(logger);
     }
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-    this.store = createStore(
+    store = store || createStore(
       rootReducer, composeEnhancers(applyMiddleware(...middleware)),
-    /* eslint-enable */
+      /* eslint-enable */
     );
   }
 
   getChildContext() {
-    const { store } = this;
     return {
       store,
     };
@@ -39,7 +41,7 @@ class AppStoreProvider extends PureComponent<Props> {
   render() {
     const { children } = this.props;
     return (
-      <Provider store={this.store}>
+      <Provider store={store}>
         {children}
       </Provider>
     );

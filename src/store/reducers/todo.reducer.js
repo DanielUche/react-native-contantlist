@@ -1,10 +1,10 @@
 import * as actionTypes from '../action-types';
 
 const initialState = {
-  loading: false,
-  detail: {},
+  isLoading: false,
+  todo: {},
+  todos: [],
   error: '',
-  success: false,
 };
 
 /**
@@ -15,9 +15,9 @@ const initialState = {
  */
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.AUTH_REQUEST:
-    case actionTypes.AUTH_FAILED:
-    case actionTypes.AUTH_SUCCESS:
+    case actionTypes.GET_TODO_REQUEST:
+    case actionTypes.GET_TODO_FAILED:
+    case actionTypes.GET_TODO_SUCCESS:
       return { ...state, ...action.payload };
     default:
       return { ...state };
