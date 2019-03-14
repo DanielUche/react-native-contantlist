@@ -14,7 +14,7 @@ import {
   CheckBox,
 } from 'react-native-elements';
 import { gotoHome } from '../navigation';
-import { getTodos } from '../store/actions/todos.action';
+import { getTodos, addTodo } from '../store/actions/todos.action';
 
 
 const styles = StyleSheet.create({
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
 type Props = {
   componentId: string;
   getUserTodos: Function;
+  addUserTodo: Function;
   loading: boolean;
   error: string;
   todos: [];
@@ -121,7 +122,7 @@ export const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = () => dispatch => bindActionCreators(
-  { getUserTodos: getTodos }, dispatch,
+  { getUserTodos: getTodos, addUserTodo: addTodo }, dispatch,
 );
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

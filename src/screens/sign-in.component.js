@@ -14,7 +14,7 @@ import {
   CheckBox,
 } from 'react-native-elements';
 import { gotoSignUp, gotoHome } from '../navigation';
-import { register, auth } from '../store/actions/auth.action';
+import { auth } from '../store/actions/auth.action';
 
 const styles = StyleSheet.create({
   container: {
@@ -224,7 +224,7 @@ export const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = () => dispatch => bindActionCreators(
-  { register, signIn: auth }, dispatch,
+  { signIn: auth }, dispatch,
 );
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);
