@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
 type Props = {
   componentId: string;
   signIn: Function;
+  loading: boolean;
 }
 class StartScreen extends Component<Props> {
   constructor(props: Props) {
@@ -55,8 +56,10 @@ class StartScreen extends Component<Props> {
   }
 
   componentDidMount() {
-    const { signIn } = this.props;
-    signIn();
+    const { signIn, loading } = this.props;
+    if (!loading) {
+      signIn();
+    }
   }
 
   getDeviceName = () => {
@@ -109,7 +112,6 @@ class StartScreen extends Component<Props> {
 
 export const mapStateToProps = state => ({
   loading: state.Auth.loading,
-  success: state.Auth.success,
   error: state.Auth.error,
 });
 

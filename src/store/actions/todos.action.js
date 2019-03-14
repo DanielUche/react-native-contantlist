@@ -28,9 +28,9 @@ const getTodosFailure = err => ({
 });
 
 export const getTodos = () => (dispatch) => {
-  dispatch(authGetToken()).then((token) => {
+  dispatch(authGetToken()).then((auth) => {
     dispatch(getTodosRequest());
-    return fetch(`${FIREBASE_BASE_URL}/todos.json?auth=${token}`)
+    return fetch(`${FIREBASE_BASE_URL}/todos.json?auth=${auth.idToken}`)
       .then(res => res.json())
       .then((data) => {
         dispatch(getTodosSuccess(data));

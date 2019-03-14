@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Navigation } from 'react-native-navigation';
 import {
   View,
   Text,
@@ -15,7 +16,8 @@ import {
 } from 'react-native-elements';
 import { gotoHome } from '../navigation';
 import { getTodos, addTodo } from '../store/actions/todos.action';
-
+import { authLogout } from '../store/actions/auth.action';
+import { APP_PAGES } from '../../constant';
 
 const styles = StyleSheet.create({
   container: {
@@ -60,6 +62,7 @@ type Props = {
   loading: boolean;
   error: string;
   todos: [];
+  logout: Function;
 }
 
 class HomeScreen extends Component<Props> {
@@ -73,17 +76,8 @@ class HomeScreen extends Component<Props> {
     };
   }
 
-  // static get options() {
-  //   return {
-  //     topBar: {
-  //       title: {
-  //         text: 'Sign Up',
-  //       },
-  //     },
-  //   };
-  // }
-
   componentDidMount() {
+    this.navigationEventListener = Navigation.events().bindComponent(this);
     const { getUserTodos } = this.props;
     getUserTodos();
   }
@@ -98,9 +92,25 @@ class HomeScreen extends Component<Props> {
     }));
   }
 
+  // hideSideMenu = () => {
+  //   Navigation.mergeOptions(APP_PAGES.menu.id, {
+  //     sideMenu: {
+  //       left: {
+  //         visible: true,
+  //         enabled: true,
+  //       },
+  //     },
+  //   });
+  // }
+
   gotoHome = () => {
     const { componentId } = this.props;
     gotoHome(componentId);
+  }
+
+  logout = () => {
+    const { logout } = this.props;
+    logout();
   }
 
   render() {
@@ -110,10 +120,15 @@ class HomeScreen extends Component<Props> {
         <Text>
           lsjdljls;d
         </Text>
+        <Button
+          title=" Logout "
+          onPress={() => this.logout()}
+        />
       </View>
     );
   }
 }
+
 
 export const mapStateToProps = state => ({
   loading: state.Todo.loading,
@@ -122,7 +137,11 @@ export const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = () => dispatch => bindActionCreators(
-  { getUserTodos: getTodos, addUserTodo: addTodo }, dispatch,
+  {
+    getUserTodos: getTodos,
+    addUserTodo: addTodo,
+    logout: authLogout,
+  }, dispatch,
 );
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

@@ -219,7 +219,6 @@ class SignInScreen extends Component<Props> {
 
 export const mapStateToProps = state => ({
   loading: state.Auth.loading,
-  success: state.Auth.success,
   error: state.Auth.error,
 });
 

@@ -3,7 +3,7 @@ import * as actionTypes from '../action-types';
 const initialState = {
   loading: false,
   todo: {},
-  todos: [],
+  todos: {},
   error: '',
 };
 
