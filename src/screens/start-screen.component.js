@@ -9,9 +9,11 @@ import {
 import {
   Button,
 } from 'react-native-elements';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import DeviceInfo from 'react-native-device-info';
-import { register } from '../store/actions/auth.action';
 import { gotoSignUp, gotoSignIn } from '../navigation';
+import { autoSignIn } from '../store/actions/auth.action';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,6 +44,8 @@ const styles = StyleSheet.create({
 
 type Props = {
   componentId: string;
+  signIn: Function;
+  loading: boolean;
 }
 class StartScreen extends Component<Props> {
   constructor(props: Props) {
@@ -52,7 +56,10 @@ class StartScreen extends Component<Props> {
   }
 
   componentDidMount() {
-    register();
+    const { signIn, loading } = this.props;
+    if (!loading) {
+      signIn();
+    }
   }
 
   getDeviceName = () => {
@@ -103,4 +110,13 @@ class StartScreen extends Component<Props> {
   }
 }
 
-export default StartScreen;
+export const mapStateToProps = state => ({
+  loading: state.Auth.loading,
+  error: state.Auth.error,
+});
+
+export const mapDispatchToProps = () => dispatch => bindActionCreators(
+  { signIn: autoSignIn }, dispatch,
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(StartScreen);

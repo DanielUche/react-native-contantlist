@@ -5,10 +5,19 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import { APP_PAGES } from '../../constant';
 
+
 export const gotoSignUp = () => Navigation.setRoot({
   root: {
     component: {
       name: APP_PAGES.sign_up.name,
+    },
+  },
+});
+
+export const startPage = () => Navigation.setRoot({
+  root: {
+    component: {
+      name: APP_PAGES.start.name,
     },
   },
 });
@@ -38,11 +47,11 @@ const menuOptions = text => Promise.all([
     visible: true,
     drawBehind: true,
     buttonColor: 'white',
-    // backButton: {
-    //   title: 'Back', ios only
-    //   showTitle: false, ios only
-    // color: 'red'
-    // },
+    backButton: {
+      title: 'Back', // ios only
+      showTitle: false, // ios only
+      color: 'red',
+    },
     // borderHeight: 1.3, // android only
     elevation: 1.5, // TopBar elevation in dp android only
     // topMargin: 24, // top margin in dp android only
@@ -60,7 +69,7 @@ const menuOptions = text => Promise.all([
   sideMenu: {
     left: {
       width: 300,
-      shouldStretchDrawer: false,
+      // shouldStretchDrawer: false,
       // animationVelocity: 2500, //default is 840
     },
     animationType: 'slide-and-scale', // defaults to none if not provided, options are 'parallax', 'door', 'slide', or 'slide-and-scale'
@@ -78,6 +87,8 @@ export const gotoHome = async () => {
       root: {
         sideMenu: {
           left: {
+            visible: true,
+            enabled: true,
             component: {
               id: APP_PAGES.menu.id,
               name: APP_PAGES.menu.name,
@@ -98,3 +109,19 @@ export const gotoHome = async () => {
     });
   });
 };
+
+Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
+  switch (buttonId) {
+    case 'humbuggerMenuButton':
+      Navigation.mergeOptions(APP_PAGES.menu.id, {
+        sideMenu: {
+          left: {
+            visible: true,
+          },
+        },
+      });
+      break;
+    default:
+      throw new Error('Should not be reached');
+  }
+});

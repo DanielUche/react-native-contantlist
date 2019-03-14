@@ -4,7 +4,6 @@ const initialState = {
   loading: false,
   detail: {},
   error: '',
-  success: false,
 };
 
 /**
@@ -18,6 +17,7 @@ export default (state = initialState, action) => {
     case actionTypes.AUTH_REQUEST:
     case actionTypes.AUTH_FAILED:
     case actionTypes.AUTH_SUCCESS:
+    case actionTypes.AUTH_LOGOUT:
       return { ...state, ...action.payload };
     default:
       return { ...state };

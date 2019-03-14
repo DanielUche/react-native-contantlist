@@ -4,7 +4,6 @@ import {
 } from '../../../constant';
 import { authGetToken } from './auth.action';
 
-
 const getTodosRequest = () => ({
   type: actionTypes.GET_TODO_REQUEST,
   payload: {
@@ -29,9 +28,9 @@ const getTodosFailure = err => ({
 });
 
 export const getTodos = () => (dispatch) => {
-  dispatch(authGetToken()).then((token) => {
+  dispatch(authGetToken()).then((auth) => {
     dispatch(getTodosRequest());
-    return fetch(`${FIREBASE_BASE_URL}/todos.json?auth=${token}`)
+    return fetch(`${FIREBASE_BASE_URL}/todos.json?auth=${auth.idToken}`)
       .then(res => res.json())
       .then((data) => {
         dispatch(getTodosSuccess(data));
@@ -43,6 +42,41 @@ export const getTodos = () => (dispatch) => {
   });
 };
 
-export const addTodo = () => (dispatch) => {
+const addTodosRequest = () => ({
+  type: actionTypes.ADD_TODO_REQUEST,
+  payload: {
+    loading: true,
+  },
+});
 
+const addTodosSuccess = data => ({
+  type: actionTypes.ADD_TODO_SUCCESS,
+  payload: {
+    loading: false,
+    todo: data,
+  },
+});
+
+const addTodosFailure = err => ({
+  type: actionTypes.ADD_TODO_FAILED,
+  payload: {
+    loading: false,
+    error: err,
+  },
+});
+
+export const addTodo = () => (dispatch) => {
+  const user = {
+    user: 'Daniel Uche P',
+    email: 'woe@yahoo.com',
+  };
+  dispatch(authGetToken()).then((token) => {
+    dispatch(addTodosRequest());
+    fetch(`${FIREBASE_BASE_URL}/todos.json?auth=${token}`, {
+      method: 'POST',
+      body: JSON.stringify(user),
+    }).then(res => res.json())
+      .then(data => dispatch(addTodosSuccess(data)))
+      .catch(err => dispatch(addTodosFailure(err)));
+  });
 };
