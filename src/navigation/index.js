@@ -121,8 +121,7 @@ Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
         },
       });
       break;
-
     default:
-      break;
+      throw new Error('Should not be reached');
   }
 });
