@@ -36,7 +36,6 @@ export const FIREBASE_AUTH_SIGN_IN = `https://www.googleapis.com/identitytoolkit
 export const FIREBASE_AUTH_SIGN_UP = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${FIREBASE_AUTH_API_KEY}`;
 export const FIREBASE_REFRESH_TOKEN = `https://securetoken.googleapis.com/v1/token?key=${FIREBASE_AUTH_API_KEY}`;
 
-
 export const AUTH_ERRORS = {
   DEFAULT: 'Something went wrong ',
   EMAIL_EXISTS: 'The email address is already in use by another account.',
